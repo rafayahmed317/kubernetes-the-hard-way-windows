@@ -8,16 +8,14 @@ In this section you will verify the ability to [encrypt secret data at rest](htt
 
 Create a generic secret:
 
-```bash
-kubectl create secret generic kubernetes-the-hard-way \
-  --from-literal="mykey=mydata"
+```powershell
+kubectl create secret generic kubernetes-the-hard-way --from-literal="mykey=mydata"
 ```
 
 Print a hexdump of the `kubernetes-the-hard-way` secret stored in etcd:
 
-```bash
-ssh root@server \
-    'etcdctl get /registry/secrets/default/kubernetes-the-hard-way | hexdump -C'
+```powershell
+ssh root@cp01.mshome.net 'etcdctl get /registry/secrets/default/kubernetes-the-hard-way | hexdump -C'
 ```
 
 ```text
@@ -54,18 +52,17 @@ In this section you will verify the ability to create and manage [Deployments](h
 
 Create a deployment for the [nginx](https://nginx.org/en/) web server:
 
-```bash
-kubectl create deployment nginx \
-  --image=nginx:latest
+```powershell
+kubectl create deployment nginx --image=nginx:latest
 ```
 
 List the pod created by the `nginx` deployment:
 
-```bash
+```powershell
 kubectl get pods -l app=nginx
 ```
 
-```bash
+```text
 NAME                     READY   STATUS    RESTARTS   AGE
 nginx-56fcf95486-c8dnx   1/1     Running   0          8s
 ```
@@ -76,14 +73,13 @@ In this section you will verify the ability to access applications remotely usin
 
 Retrieve the full name of the `nginx` pod:
 
-```bash
-POD_NAME=$(kubectl get pods -l app=nginx \
-  -o jsonpath="{.items[0].metadata.name}")
+```powershell
+$POD_NAME=$(kubectl get pods -l app=nginx -o jsonpath="{.items[0].metadata.name}")
 ```
 
 Forward port `8080` on your local machine to port `80` of the `nginx` pod:
 
-```bash
+```powershell
 kubectl port-forward $POD_NAME 8080:80
 ```
 
@@ -94,8 +90,8 @@ Forwarding from [::1]:8080 -> 80
 
 In a new terminal make an HTTP request using the forwarding address:
 
-```bash
-curl --head http://127.0.0.1:8080
+```powershell
+(iwr http://127.0.0.1:8080).Headers
 ```
 
 ```text
@@ -125,7 +121,7 @@ In this section you will verify the ability to [retrieve container logs](https:/
 
 Print the `nginx` pod logs:
 
-```bash
+```powershell
 kubectl logs $POD_NAME
 ```
 
@@ -140,7 +136,7 @@ In this section you will verify the ability to [execute commands in a container]
 
 Print the nginx version by executing the `nginx -v` command in the `nginx` container:
 
-```bash
+```powershell
 kubectl exec -ti $POD_NAME -- nginx -v
 ```
 
@@ -154,26 +150,23 @@ In this section you will verify the ability to expose applications using a [Serv
 
 Expose the `nginx` deployment using a [NodePort](https://kubernetes.io/docs/concepts/services-networking/service/#type-nodeport) service:
 
-```bash
-kubectl expose deployment nginx \
-  --port 80 --type NodePort
+```powershell
+kubectl expose deployment nginx --port 80 --type NodePort
 ```
 
 > The LoadBalancer service type can not be used because your cluster is not configured with [cloud provider integration](https://kubernetes.io/docs/getting-started-guides/scratch/#cloud-provider). Setting up cloud provider integration is out of scope for this tutorial.
 
 Retrieve the node port assigned to the `nginx` service:
 
-```bash
-NODE_PORT=$(kubectl get svc nginx \
-  --output=jsonpath='{range .spec.ports[0]}{.nodePort}')
+```powershell
+$NODE_PORT=$(kubectl get svc nginx --output=jsonpath='{range .spec.ports[0]}{.nodePort}')
 ```
-
 
 
 Make an HTTP request using the IP address and the `nginx` node port:
 
-```bash
-curl -I http://node-0:${NODE_PORT}
+```powershell
+(iwr "http://worker-01.mshome.net:$NODE_PORT").Headers
 ```
 
 ```text
@@ -187,5 +180,3 @@ Connection: keep-alive
 ETag: "6537cac7-267"
 Accept-Ranges: bytes
 ```
-
-Next: [Cleaning Up](13-cleanup.md)

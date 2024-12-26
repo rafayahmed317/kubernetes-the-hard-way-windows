@@ -1,6 +1,6 @@
 # Kubernetes The Hard Way
 
-This tutorial walks you through setting up Kubernetes the hard way. This guide is not for someone looking for a fully automated tool to bring up a Kubernetes cluster. Kubernetes The Hard Way is optimized for learning, which means taking the long route to ensure you understand each task required to bootstrap a Kubernetes cluster.
+This tutorial walks you through setting up Kubernetes the hard way. This guide is not for someone looking for a fully automated tool to bring up a Kubernetes cluster. Kubernetes The Hard Way is optimized for learning, which means taking the long route to ensure you understand each task required to bootstrap a Kubernetes cluster. This version specifically focuses on setting up a cluster in a windows environment with tools like PowerShell and Hyper-V.
 
 > The results of this tutorial should not be viewed as production ready, and may receive limited support from the community, but don't let that stop you from learning!
 
@@ -19,25 +19,25 @@ Kubernetes The Hard Way guides you through bootstrapping a basic Kubernetes clus
 
 Component versions:
 
-* [kubernetes](https://github.com/kubernetes/kubernetes) v1.31.x
-* [containerd](https://github.com/containerd/containerd) v2.0.x
-* [cni](https://github.com/containernetworking/cni) v1.6.x
-* [etcd](https://github.com/etcd-io/etcd) v3.4.x
+* [kubernetes](https://github.com/kubernetes/kubernetes) v1.32.0
+* [containerd](https://github.com/containerd/containerd) v2.0.1
+* [cni](https://github.com/containernetworking/cni) v1.6.1
+* [etcd](https://github.com/etcd-io/etcd) v3.5.17
 
 ## Labs
 
-This tutorial requires four (4) ARM64 based virtual or physical machines connected to the same network. While ARM64 based machines are used for the tutorial, the lessons learned can be applied to other platforms.
+This tutorial requires three AMD64 based Hyper-V VMs. There is a guide on how to setup those with least amount of time in the [Prerequisites](docs/01-prerequisites-windows.md) section.
 
-* [Prerequisites](docs/01-prerequisites.md)
-* [Setting up the Jumpbox](docs/02-jumpbox.md)
-* [Provisioning Compute Resources](docs/03-compute-resources.md)
-* [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority.md)
-* [Generating Kubernetes Configuration Files for Authentication](docs/05-kubernetes-configuration-files.md)
-* [Generating the Data Encryption Config and Key](docs/06-data-encryption-keys.md)
-* [Bootstrapping the etcd Cluster](docs/07-bootstrapping-etcd.md)
-* [Bootstrapping the Kubernetes Control Plane](docs/08-bootstrapping-kubernetes-controllers.md)
-* [Bootstrapping the Kubernetes Worker Nodes](docs/09-bootstrapping-kubernetes-workers.md)
-* [Configuring kubectl for Remote Access](docs/10-configuring-kubectl.md)
-* [Provisioning Pod Network Routes](docs/11-pod-network-routes.md)
-* [Smoke Test](docs/12-smoke-test.md)
-* [Cleaning Up](docs/13-cleanup.md)
+* [Prerequisites](docs/01-prerequisites-windows.md)
+* [Setting up the Jumpbox](docs/02-jumpbox-windows.md)
+* [Provisioning Compute Resources](docs/03-compute-resources-windows.md)
+* [Provisioning the CA and Generating TLS Certificates](docs/04-certificate-authority-windows.md)
+* [Generating Kubernetes Configuration Files for Authentication](docs/05-kubernetes-configuration-files-windows.md)
+* [Generating the Data Encryption Config and Key](docs/06-data-encryption-keys-windows.md)
+* [Bootstrapping the etcd Cluster](docs/07-bootstrapping-etcd-windows.md)
+* [Bootstrapping the Kubernetes Control Plane](docs/08-bootstrapping-kubernetes-controllers-windows.md)
+* [Bootstrapping the Kubernetes Worker Nodes](docs/09-bootstrapping-kubernetes-workers-windows.md)
+* [Configuring kubectl for Remote Access](docs/10-configuring-kubectl-windows.md)
+* [Provisioning Pod Network Routes](docs/11-pod-network-routes-windows.md)
+* [Smoke Test](docs/12-smoke-test-windows.md)
+* [Cleaning Up](docs/13-cleanup-windows.md)
